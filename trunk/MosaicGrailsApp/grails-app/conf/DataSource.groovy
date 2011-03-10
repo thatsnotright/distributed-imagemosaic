@@ -7,8 +7,8 @@
 dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
-    username = "user"
-    password = "pass"
+    username = "root"
+    password = "chris"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -18,6 +18,7 @@ hibernate {
 // environment specific settings
 // url = "jdbc:hsqldb:mem:devDB"
 // production url = "jdbc:hsqldb:file:prodDb;shutdown=true"
+// url = "jdbc:mysql://localhost/mosaic"
 environments {
     development {
         dataSource {
@@ -34,7 +35,9 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/mosaic"
+            url = "jdbc:mysql://mosaic.cndqhndk8zch.us-east-1.rds.amazonaws.com/mosaic"
+            username = "mosaicUser"
+            password = "124lext335"
         }
     }
 }
