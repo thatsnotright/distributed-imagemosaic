@@ -6,10 +6,8 @@ import javax.xml.bind.annotation.*;
 class ImageHeader {
     // TODO see if this can be the DB key
     String  url
-    // TODO figure out who converts
     Integer longitude
-    Integer latitude
-    // TODO is this the correct format. 
+    Integer latitude 
     Integer red
     Integer blue
     Integer green
