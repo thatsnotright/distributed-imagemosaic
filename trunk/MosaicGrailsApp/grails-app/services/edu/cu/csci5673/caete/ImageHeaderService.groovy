@@ -10,6 +10,10 @@ class ImageHeaderService {
 
     static expose=['cxf']
 
+    String ping(){
+        return "Web Service contacted."
+    }
+
     /* Save a new image */
     void saveImage(String url, Integer longitude, Integer latitude,
         Integer red, Integer blue, Integer green){
