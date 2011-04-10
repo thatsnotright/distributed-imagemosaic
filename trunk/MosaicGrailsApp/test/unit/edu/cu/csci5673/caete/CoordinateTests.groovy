@@ -48,13 +48,13 @@ class CoordinateTests extends GrailsUnitTestCase {
     }
 
     void testAddLongitude() {
-        assertEquals 15000000,addLongitude(Coordinate.MAX_LONGITUDE,-3000000)
+        assertEquals 150000000,addLongitude(Coordinate.MAX_LONGITUDE,-30000000)
         assertEquals new Integer(-3000000),addLongitude(0,-3000000)
-        assertEquals 15000000,addLongitude(Coordinate.MIN_LONGITUDE,-3000000)  // Cross dt/tm boundry
-        assertEquals new Integer(-15000000),addLongitude(Coordinate.MAX_LONGITUDE,+3000000) // Cross dt/tm boundry
+        assertEquals 150000000,addLongitude(Coordinate.MIN_LONGITUDE,-30000000)  // Cross dt/tm boundry
+        assertEquals new Integer(-150000000),addLongitude(Coordinate.MAX_LONGITUDE,+30000000) // Cross dt/tm boundry
         assertEquals 3000000,addLongitude(0,3000000)
-        assertEquals new Integer(-15000000),addLongitude(Coordinate.MIN_LONGITUDE,3000000)
-        assertEquals 0,addLongitude(0,36000000) // around the world
+        assertEquals new Integer(-150000000),addLongitude(Coordinate.MIN_LONGITUDE,30000000)
+        assertEquals 0,addLongitude(0,360000000) // around the world
     }
 
     private Integer addLongitude(Integer startValue, Integer adjustment){
