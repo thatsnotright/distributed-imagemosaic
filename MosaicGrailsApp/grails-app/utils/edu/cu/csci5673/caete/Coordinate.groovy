@@ -3,11 +3,11 @@ package edu.cu.csci5673.caete
 
 /* Static class to make dealing with long/lat easier */
 class Coordinate {
-    public static final int MIN_LATITUDE  = -9000000
-    public static final int MAX_LATITUDE  =  9000000
-    public static final int MIN_LONGITUDE = -18000000
-    public static final int MAX_LONGITUDE = 18000000
-    private static final int DEGREES_LONGITUDE = 36000000
+    public static final int MIN_LATITUDE  = -90000000
+    public static final int MAX_LATITUDE  =  90000000
+    public static final int MIN_LONGITUDE = -180000000
+    public static final int MAX_LONGITUDE = 180000000
+    private static final int DEGREES_LONGITUDE = 360000000
 
     private Integer longitude  // getter no setters
     private Integer latitude
