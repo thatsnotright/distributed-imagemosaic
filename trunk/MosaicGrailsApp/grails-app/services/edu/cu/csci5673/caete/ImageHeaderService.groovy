@@ -17,7 +17,19 @@ class ImageHeaderService {
     /* Save a new image */
     void saveImage(String url, Integer longitude, Integer latitude,
         Integer red, Integer blue, Integer green){
-        new ImageHeader(url:url,longitude:longitude,latitude:latitude,red:red,blue:blue,green:green).save()
+        ImageHeader old = ImageHeader.get(url);
+        if (old==null){
+            // create a new object as one does not exist in db
+            new ImageHeader(url:url,longitude:longitude,latitude:latitude,red:red,blue:blue,green:green).save()
+        } else {
+            // update old object
+            old.setLongitude(longitude);
+            old.setLatitude(latitude);
+            old.setRed(red);
+            old.setBlue(blue);
+            old.setGreen(green);
+            old.save();
+        }
     }
 
     /* Select images near location (longitude,latitude).
