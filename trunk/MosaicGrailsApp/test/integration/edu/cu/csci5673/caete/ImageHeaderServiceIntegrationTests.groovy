@@ -27,6 +27,12 @@ class ImageHeaderServiceIntegrationTests extends GroovyTestCase {
         assertEquals 0,results.size()                       // select no images
         results = service.selectImagesNearLocation(2,2,-1)
         assertEquals 0,results.size()                       // select no images
+
+        // Test Longitude big by 10x too big fix
+        results = service.selectImagesNearLocation(2,(Coordinate.MAX_LATITUDE*10),1)
+        assertEquals 1,results.size()
+        results = service.selectImagesNearLocation(2,(Coordinate.MIN_LATITUDE*10),1)
+        assertEquals 1,results.size()
     }
 
     /* test searching for images using longitude */
