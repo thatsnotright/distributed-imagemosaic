@@ -1,0 +1,48 @@
+ 
+JImage Mosaic v.0.2 alpha
+
+Changelog - 
+
+- Populated algorithm select box.  Still isn't functional.
+
+- Disabled "load project" until it becomes functional.
+
+- Added "Render Options" button.
+
+	- Added tile repetition selection.
+
+		- Allow no tile repetition.
+
+		- Allow unconstrained tile repetition.
+
+		- Allow tile repetition within a minimum distance.
+
+	- Added tile render order selection.
+
+		- Linear order rendering of tiles for any algorithm.
+
+		- Random order rendering of tiles for any algorithm.
+
+	- Added tile color correction.
+
+		- Color correction selectable as on/off.
+
+		- Color correction percentage specifiable.
+
+- Enable/Disable buttons according to render state.
+
+- Generalized rendering code for plugin support.
+
+- Changed thread wait time.
+
+- Added plugin name capture.
+
+- Removed randomizing from RadiusRenderRandom.
+
+	- Randomizing now a part of tileRenderList.
+
+Bugfixes
+
+- Fixed drop menu, brings to front.
+
+- Fixed cancel button on libForm.
