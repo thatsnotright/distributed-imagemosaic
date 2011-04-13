@@ -1,0 +1,107 @@
+1. INTRODUCTION
+
+JImage Mosaic is a program which allows you to make photomosaic
+images.  Photomosaics are large images that are made from several
+smaller tile images.  Currently, JImage Mosaic is in its alpha2
+release form.  This means that there are still several bugs that
+need to be worked out, and several functions do not even exist
+yet.  JImage Mosaic will be a highly extensible program, allowing
+developers to create their own rendering/evaluating/saving
+plugins.
+
+2. INSTALLATION
+
+Installation of JImage Mosaic is fairly simple, provided that
+you have already downloaded the JRE and JAI packages from
+java.sun.com (See REQUIREMENTS section for more info.)
+
+	WINDOWS:
+	
+		Simply un-zip the file into your desired
+		directory (making sure you maintain the
+		directory structure).
+		Next, just run the .BAT file included with
+		the package by double-clicking on 
+		JImageMosaic.BAT.
+		OR, you can go to a command prompt and
+		type:
+			java MainForm
+
+	LINUX:
+
+		For linux distributions, just copy the
+		downloaded file into the appropriate directory,
+		and unzip/untar it, by typing:
+			tar -zxvf JImageMosaic_0.2alpha_bin.tar.gz
+		This should decompress JImage Mosaic, maintaining
+		the directory structure.  To execute JImage Mosaic,
+		just type:
+			./JImageMosaic
+		in the directory you installed to, to run the
+		shell script.  Or, you can just type:
+			java MainForm		
+
+	MAC:
+		
+		There currently aren't any files that are
+		easily executable for the Macs to run
+		JImage Mosaic.  But, you can download and
+		decompress any of the disributions, and
+		run the Java class MainForm to start running
+		JImage Mosaic.  I've also been informed that Sun
+		has not yet released JAI for the Mac.  I'm not
+		sure if there is a 3rd party JAI substitute.  I'd
+		appreciate an email if anyone is able to get
+		JImage Mosaic working on a Mac. jimage-mosaic@jimdrewes.com
+
+
+	SOURCE CODE:
+
+		To actually compile the source code, you need to
+		download the J2SE 1.4 SDK, as well as the JDK for
+		JAI 1.1.1_01.  Then, to compile the code, do:
+			javac *.java imageUtils/*.java plugins/*.java plugins/saveTypes/*.java
+
+3. REQUIREMENTS
+
+To run JImage Mosaic, you have to have Java's Runtime
+Environment (JRE 1.4) installed, as well as Java's JAI
+API.  These are both available for download for free from
+Sun's servers.  If you aren't sure if you already have Java
+installed, go to a command/shell prompt, and type:
+	java -version
+If the version is 1.4.0_01 or higher, you are okay.  But you'll
+probably still have to install JAI.  The following are links
+to the files you need to download to install Java and JAI:
+	JRE 1.4 (J2SE)
+		http://java.sun.com/j2se/1.4/download.html
+			(note:  Download the JDK, not the SDK)
+	JAI 1.1.1_01
+		http://java.sun.com/products/java-media/jai/downloads/download.html
+			(note: Download from the JRE box, not any of the others)
+
+Other than that, all you need is to download and install the JImage Mosaic
+binaries, per the instructions in the INSTALLATION section.
+
+Hardware-wise, to get decent performance, you need a reasonable amount of RAM
+(128MB), and a decent processor (1Gz or more).  Also, faster hard drives and
+better video cards also should speed up performance.  Even though these are
+recommended specs, you can probably run JImage Mosaic with lower hardware.
+
+4. DOCUMENTATION
+
+Documentation will be made available on the JImage Mosaic website, at:
+	http://jimage-mosaic.sourceforge.net/documentation.php
+
+5. GETTING MORE INFORMATION
+
+For more info on JImage Mosaic bugs, file releases, development, and documentation,
+visit:
+	http://jimage-mosaic.sourceforge.net/
+Or, you can email:
+	jimage-mosaic@jimdrewes.com
+	
+--
+Jim Drewes
+jimage-mosaic@jimdrewes.com
+

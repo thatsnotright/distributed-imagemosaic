@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="lib" path="jai_1_1_2_01/lib/jai_codec.jar"/>
+	<classpathentry exported="true" kind="lib" path="jai_1_1_2_01/lib/jai_core.jar"/>
+	<classpathentry exported="true" kind="lib" path="jai_1_1_2_01/lib/libmlib_jai.so"/>
+	<classpathentry exported="true" kind="lib" path="jai_1_1_2_01/lib/mlibwrapper_jai.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

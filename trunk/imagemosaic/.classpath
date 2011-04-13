@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/groovy"/>
+	<classpathentry kind="src" path="grails-app/conf"/>
+	<classpathentry kind="src" path="grails-app/controllers"/>
+	<classpathentry kind="src" path="grails-app/domain"/>
+	<classpathentry kind="src" path="grails-app/services"/>
+	<classpathentry kind="src" path="grails-app/taglib"/>
+	<classpathentry kind="src" path="test/integration"/>
+	<classpathentry kind="src" path="test/unit"/>
+	<classpathentry kind="src" path="grails-app/views"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="com.springsource.sts.grails.core.CLASSPATH_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/rob/distributed/team_prj/distributed-imagemosaic/imagemosaic/lib/groovyws.jar"/>
+	<classpathentry kind="lib" path="lib/jim.jar" sourcepath="/imagemos"/>
+	<classpathentry kind="lib" path="lib/metadata-extractor-2.3.1.jar"/>
+	<classpathentry kind="con" path="GROOVY_SUPPORT"/>
+	<classpathentry kind="output" path="web-app/WEB-INF/classes"/>
+</classpath>
