@@ -17,6 +17,19 @@ class ImageHeaderService {
     /* Save a new image */
     void saveImage(String url, Integer longitude, Integer latitude,
         Integer red, Integer blue, Integer green){
+
+        /*
+         * The longitudes in the database appear to be too large by a factor
+         * of 10.  Currently DB latitude are bigger than longitude.  This
+         * Does not make since as latitude ranges from 90 to -90 and
+         * Longitude ranges from 180 to -180.  So longitude should be bigger
+         * than latitude on average however it never is.  As a quick fix,
+         * I am going to divide by 10 until the DB format is fixed.
+         */
+        if (latitude>Coordinate.MAX_LATITUDE || latitude<Coordinate.MIN_LATITUDE){
+            latitude = latitude / 10
+        }
+
         ImageHeader old = ImageHeader.get(url);
         if (old==null){
             // create a new object as one does not exist in db
@@ -39,18 +52,6 @@ class ImageHeaderService {
      */
     Set<ImageHeader> selectImagesNearLocation(Integer longitude, Integer latitude, Integer numImagesToSelect){
         
-        /*
-         * The longitudes in the database appear to be too large by a factor 
-         * of 10.  Currently DB latitude are bigger than longitude.  This
-         * Does not make since as latitude ranges from 90 to -90 and 
-         * Longitude ranges from 180 to -180.  So longitude should be bigger 
-         * than latitude.  As a quick fix, I am going to divide by 10 until 
-         * the DB format is fixed.   
-         */
-        if (latitude<Coordinate.MAX_LATITUDE || latitude>Coordinate.MIN_LATITUDE){
-            latitude = latitude % 10
-        }
-
         /* progressivly select images in larger search areas until
          * numImagesToSelect images are found.
          */
