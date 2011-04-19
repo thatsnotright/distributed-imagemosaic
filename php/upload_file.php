@@ -1,6 +1,7 @@
 <html>
 <body>
 <?php
+date_default_timezone_set('America/Denver');
 include("inc/funcs.php");
 require_once('inc/nusoap.php');
 
