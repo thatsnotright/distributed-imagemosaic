@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 include("inc/funcs.php");
 require_once('inc/nusoap.php');
@@ -53,7 +55,7 @@ $colorMap = array();
 
 
 function checkUsed($x, $y, $url, $tiles) {
-	$radius = 6;
+	$radius = 16;
 	for($row=$x-$radius;$row<$x+$radius;$row++) {
 		for($col=$y-$radius; $col<$y+$radius;$col++) {
 			if ( isset($tiles[$row][$col]) && $tiles[$row][$col] == $url )
@@ -64,16 +66,13 @@ function checkUsed($x, $y, $url, $tiles) {
 }
 
 function findMatch($x, $y, $rgb, $imagelist, $tiles) {
-	$r = ($rgb >> 16) & 0xFF;
-	$g = ($rgb >> 8) & 0xFF;
-	$b = $rgb & 0xFF;
 	$closesturl = '';
 	$closest = 1000;
 
 	foreach($imagelist as $image) {
 		// val * 256 / 32768  = val * 0.0078125
-		$dif = abs($image['red']*0.0078125-$r)+abs($image['green']*0.0078125-$g)+abs($image['blue']*0.0078125-$b);
-		if ( $dif <= $closest && !checkUsed($x, $y, $image['url'], $tiles) )
+		$dif = abs($image['red']*0.007-$rgb[0])+abs($image['green']*0.007-$rgb[1])+abs($image['blue']*0.007-$rgb[2]);
+		if ( $dif < $closest && !checkUsed($x, $y, $image['url'], $tiles) )
 		{			
 			$closest = $dif;
 			$closesturl = $image['url'];
@@ -82,19 +81,31 @@ function findMatch($x, $y, $rgb, $imagelist, $tiles) {
 	return $closesturl;
 }
 
-if (!((($_FILES["file"]["type"] == "image/gif")
-|| ($_FILES["file"]["type"] == "image/jpeg")
-|| ($_FILES["file"]["type"] == "image/pjpeg"))
-&& ($_FILES["file"]["size"] < 2000000))) {
+function showpixmap($width, $height, $pixmap, $xblocksize, $yblocksize, $xblocks, $yblocks) {
+	$pixim = imagecreatetruecolor($width, $height);
+	for($x=0;$x<$xblocks;$x++) {
+		for($y=0;$y<$yblocks;$y++) {
+			$color = imagecolorallocate($pixim, $pixmap[$x][$y][0],$pixmap[$x][$y][1],$pixmap[$x][$y][2]);
+			imagefilledrectangle($pixim, $x*$xblocksize, $y*$yblocksize, $x*$xblocksize+$xblocksize, $y*$yblocksize+$yblocksize, $color);
+			imagecolordeallocate($pixim, $color);
+		}
+	}
+	ob_start();
+	imagejpeg($pixim);
+	$contents =  ob_get_contents();
+	ob_end_clean();
+	echo "<img src='data:image/jpeg;base64,".base64_encode($contents)."' /><br/>";
+	imagedestroy($pixim);
+}
+
+if ($_FILES["file"]["type"] != "image/jpeg"
+  && $_FILES["file"]["size"] > 2000000) {
 echo "nope";
 }
 
 if ($_FILES["file"]["error"] > 0)
-  {
+{
   echo "Error: " . $_FILES["file"]["error"] . "<br />";
-  }
-else if (isset($_GET['id'])) {
-
 }
 else
   {
@@ -103,21 +114,48 @@ $filename = $_FILES["file"]["tmp_name"];
 $exif = exif_read_data($filename);
 $lon = getGps($exif["GPSLongitude"], $exif['GPSLongitudeRef']);
 $lat = getGps($exif["GPSLatitude"], $exif['GPSLatitudeRef']);
+echo "This image was taken at ".$lon." longitude, ".$lat." latitude.<br/>";
 $lon = (int)($lon * 1000000);
 $lat = (int)($lat * 1000000);
 
 $size = getimagesize($filename);
 $width = $size[0];
 $height = $size[1];
-$tilecount = (int)($width/10*$height/10);
 
-if ( $type == "image/jpeg" )
-  $im = imagecreatefromjpeg($filename);
-$xblocksize = 40;
-$yblocksize = (int)($xblocksize*$width/$height);
-$xblocks = (int)($width/$xblocksize);
-$yblocks = (int)($height/$yblocksize);
-$pixmap = pixelize($im, $width, $height, $xblocksize, $yblocksize);
+$im = imagecreatefromjpeg($filename);
+ob_start();
+imagejpeg($im);
+$contents =  ob_get_contents();
+ob_end_clean();
+echo "<img src='data:image/jpeg;base64,".base64_encode($contents)."' />";
+
+$xblocksize = $_POST['tilesize'];
+if(isset($_POST['keepsize'])) {
+	$image = imagecreatetruecolor($width, $height);
+	$yblocksize = (int)($xblocksize);
+	$xblocks = (int)($width/$xblocksize);
+	$yblocks = (int)($height/$yblocksize);
+	$tilecount = (int)($xblocks*$yblocks)*2;
+	$pixmap = pixelize($im, $width, $height, $xblocksize, $yblocksize);
+	showpixmap($width, $height, $pixmap, $xblocksize, $yblocksize, $xblocks, $yblocks);
+} else {
+	$xblocksize = 10;
+	$yblocksize = (int)($xblocksize);
+	$xblocks = (int)($width/$xblocksize);
+	$yblocks = (int)($height/$yblocksize);
+	$tilecount = (int)($xblocks*$yblocks)*2;
+
+	$pixmap = pixelize($im, $width, $height, 10, 10);	
+	showpixmap($width, $height, $pixmap, $xblocksize, $yblocksize, $xblocks, $yblocks);
+
+	$xblocksize = $_POST['tilesize'];
+	$yblocksize = (int)($xblocksize);
+	$width = $xblocksize * $xblocks;
+	$height = $yblocksize * $yblocks;
+	$image = imagecreatetruecolor($width, $height);
+}
+
+echo "Final image size will be ".$width."x".$height." pixels<br/>";
 
 $client = new nusoap_client('http://mosaicgrailsapp.elasticbeanstalk.com/services/imageHeader?wsdl','wsdl');
 $result = $client->call('selectImagesNearLocation', array('longitude'=>(int)$lon, 'latitude'=>(int)$lat, 'numImagesToSelect'=>(int)$tilecount));
@@ -125,7 +163,7 @@ $result = $client->call('selectImagesNearLocation', array('longitude'=>(int)$lon
 $imagelist = $result['return'];
 
 $tileMap = selectTiles($xblocks, $yblocks, $pixmap, $imagelist);
-$image = imagecreatetruecolor($width, $height);
+
 
 // make a cache of images
 $imagecache = array();
@@ -135,7 +173,7 @@ for($x=0;$x<$xblocks;$x++) {
 		$uniquelist[$tileMap[$x][$y]] = $tileMap[$x][$y];
 	}
 }
-
+$dtime_start = microtime(true);
 $curl_arr = array();
 $master = curl_multi_init();
 $i=0;
@@ -161,13 +199,14 @@ for($i = 0; $i < $node_count; $i++)
 	fwrite($file, $results);
 	fseek($file, 0);
 	fclose($file);
-
 	curl_multi_remove_handle($master, $curl_arr[$i][0]);;
 }
 curl_multi_close($master);
-header("Content-Type: image/png");
-//header("Content-Length: " . filesize($name));
 
+$dtime_end = microtime(true);
+$dtime = $dtime_end - $dtime_start;
+
+$time_start = microtime(true);
 for($x=0;$x<$xblocks;$x++) {
 	for($y=0; $y<$yblocks;$y++) {
 		$img = imagecreatefromjpeg($imagecache[$tileMap[$x][$y]]);
@@ -176,6 +215,35 @@ for($x=0;$x<$xblocks;$x++) {
 		imagedestroy($img);
 	}
 }
-imagepng($image);
-  }
+$time_end = microtime(true);
+$time = $time_end - $time_start;
 
+$totalsize=0;
+foreach($imagecache as $file) {
+	$totalsize += filesize($file);
+}
+echo "<map name=\"sourcemap\">";
+for($x=0;$x<$xblocks;$x++) {
+	for($y=0; $y<$yblocks;$y++) {
+		$coordstr = ($x*$xblocksize).",".($y*$yblocksize).",".($x*$xblocksize+$xblocksize).",".($y*$yblocksize+$yblocksize);
+		echo "<area shape=\"rect\" coords=\"".$coordstr."\" href=\"".$tileMap[$x][$y]."\" target=\"_blank\"/>";
+	}
+}
+echo "</map>";
+
+ob_start();
+imagejpeg($image);
+$contents =  ob_get_contents();
+ob_end_clean();
+echo "<img src='data:image/jpeg;base64,".base64_encode($contents)."' usemap=\"#sourcemap\"/>";
+imagedestroy($image);
+echo "Downloaded ".count($imagecache)." images in ".$dtime." seconds, total of ".$totalsize." bytes for ".$totalsize/$dtime." bytes/sec<br/>";
+echo "Took ".$time." seconds to create the output image.<br/>";
+
+foreach($imagecache as $file) {
+	unlink($file);
+}
+  }
+?>
+</body>
+</html>

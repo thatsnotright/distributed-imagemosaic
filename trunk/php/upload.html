@@ -6,8 +6,17 @@ enctype="multipart/form-data">
 <label for="file">Filename:</label>
 <input type="file" name="file" id="file" /> 
 <br />
+<input type="checkbox" name="keepsize" value="true"/>Maintain Original Size for Mosaic<br/>
+Tile Size:<select name="tilesize">
+<option value="10">10</option>
+<option value="20" selected="selected">20</option>
+<option value="40">40</option>
+<option value="80">80</option>
+<option value="160">160</option>
+</select><br/><br/>
 <input type="submit" name="submit" value="Submit" />
 </form>
 
 </body>
 </html>
+
