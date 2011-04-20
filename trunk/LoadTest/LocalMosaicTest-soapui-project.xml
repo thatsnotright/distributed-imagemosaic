@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="LocalMosaicTest" resourceRoot="" soapui-version="3.6.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.LoadTestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="TestSuite" value="SaveAndSelect TestSuite"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="Report to Generate" value=""/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="soapui-setings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value="C:\Program Files\eviware\soapUI-3.6.1/bin"/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="LoadTest" value="SimpleLoadTest"/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="Save Project" value="false"/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Print Report Statistics" value="false"/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="TestCase" value="SaveAndSelect TestCase"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Endpoint" value=""/>
+  <con:entry key="ThreadCount" value=""/>
+  <con:entry key="Limit" value=""/>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ImageHeaderServiceSoapBinding" type="wsdl" bindingName="{http://caete.csci5673.cu.edu/}ImageHeaderServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/MosaicGrailsApp/services/imageHeader?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/MosaicGrailsApp/services/imageHeader?wsdl"><con:part><con:url>http://localhost:8080/MosaicGrailsApp/services/imageHeader?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="ImageHeaderService" targetNamespace="http://caete.csci5673.cu.edu/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://caete.csci5673.cu.edu/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://caete.csci5673.cu.edu/" xmlns="http://caete.csci5673.cu.edu/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="imageHeader">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="url" type="xs:string"/>
+          <xs:element minOccurs="0" name="longitude" type="xs:int"/>
+          <xs:element minOccurs="0" name="latitude" type="xs:int"/>
+          <xs:element minOccurs="0" name="red" type="xs:int"/>
+          <xs:element minOccurs="0" name="blue" type="xs:int"/>
+          <xs:element minOccurs="0" name="green" type="xs:int"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="version" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="selectImagesNearLocation" type="selectImagesNearLocation"/>
+      <xs:complexType name="selectImagesNearLocation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="longitude" type="xs:int"/>
+          <xs:element minOccurs="0" name="latitude" type="xs:int"/>
+          <xs:element minOccurs="0" name="numImagesToSelect" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="selectImagesNearLocationResponse" type="selectImagesNearLocationResponse"/>
+      <xs:complexType name="selectImagesNearLocationResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="imageHeader"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ping" type="ping"/>
+      <xs:complexType name="ping">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="pingResponse" type="pingResponse"/>
+      <xs:complexType name="pingResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="saveImage" type="saveImage"/>
+      <xs:complexType name="saveImage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="url" type="xs:string"/>
+          <xs:element minOccurs="0" name="longitude" type="xs:int"/>
+          <xs:element minOccurs="0" name="latitude" type="xs:int"/>
+          <xs:element minOccurs="0" name="red" type="xs:int"/>
+          <xs:element minOccurs="0" name="blue" type="xs:int"/>
+          <xs:element minOccurs="0" name="green" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="saveImageResponse" type="saveImageResponse"/>
+      <xs:complexType name="saveImageResponse">
+        <xs:sequence/>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="selectImagesNearLocationResponse">
+    <wsdl:part element="tns:selectImagesNearLocationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="selectImagesNearLocation">
+    <wsdl:part element="tns:selectImagesNearLocation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pingResponse">
+    <wsdl:part element="tns:pingResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ping">
+    <wsdl:part element="tns:ping" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveImageResponse">
+    <wsdl:part element="tns:saveImageResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveImage">
+    <wsdl:part element="tns:saveImage" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ImageHeaderServicePortType">
+    <wsdl:operation name="selectImagesNearLocation">
+      <wsdl:input message="tns:selectImagesNearLocation" name="selectImagesNearLocation"></wsdl:input>
+      <wsdl:output message="tns:selectImagesNearLocationResponse" name="selectImagesNearLocationResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <wsdl:input message="tns:ping" name="ping"></wsdl:input>
+      <wsdl:output message="tns:pingResponse" name="pingResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveImage">
+      <wsdl:input message="tns:saveImage" name="saveImage"></wsdl:input>
+      <wsdl:output message="tns:saveImageResponse" name="saveImageResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ImageHeaderServiceSoapBinding" type="tns:ImageHeaderServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="selectImagesNearLocation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="selectImagesNearLocation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="selectImagesNearLocationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ping">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveImage">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="saveImage">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="saveImageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ImageHeaderService">
+    <wsdl:port binding="tns:ImageHeaderServiceSoapBinding" name="ImageHeaderServicePort">
+      <soap:address location="http://localhost:8080/MosaicGrailsApp/services/imageHeader"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/MosaicGrailsApp/services/imageHeader</con:endpoint><con:endpoint>http://mosaicgrailsloadtestapp.elasticbeanstalk.com/services/imageHeader</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ping" bindingOperationName="ping" type="Request-Response" outputName="pingResponse" inputName="ping" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/MosaicGrailsApp/services/imageHeader</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:caet="http://caete.csci5673.cu.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <caet:ping/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://caete.csci5673.cu.edu/ImageHeaderServicePortType/ping"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="saveImage" bindingOperationName="saveImage" type="Request-Response" outputName="saveImageResponse" inputName="saveImage" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/MosaicGrailsApp/services/imageHeader</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:caet="http://caete.csci5673.cu.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <caet:saveImage>
+         <!--Optional:-->
+         <url>?</url>
+         <!--Optional:-->
+         <longitude>?</longitude>
+         <!--Optional:-->
+         <latitude>?</latitude>
+         <!--Optional:-->
+         <red>?</red>
+         <!--Optional:-->
+         <blue>?</blue>
+         <!--Optional:-->
+         <green>?</green>
+      </caet:saveImage>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://caete.csci5673.cu.edu/ImageHeaderServicePortType/saveImage"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="selectImagesNearLocation" bindingOperationName="selectImagesNearLocation" type="Request-Response" outputName="selectImagesNearLocationResponse" inputName="selectImagesNearLocation" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/MosaicGrailsApp/services/imageHeader</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:caet="http://caete.csci5673.cu.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <caet:selectImagesNearLocation>
+         <!--Optional:-->
+         <longitude>?</longitude>
+         <!--Optional:-->
+         <latitude>?</latitude>
+         <!--Optional:-->
+         <numImagesToSelect>?</numImagesToSelect>
+      </caet:selectImagesNearLocation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://caete.csci5673.cu.edu/ImageHeaderServicePortType/selectImagesNearLocation"/></con:call></con:operation></con:interface><con:testSuite name="SaveAndSelect TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SaveAndSelect TestCase" searchProperties="true" id="88564c6b-d9df-442a-8c95-d8e554203ef5"><con:settings/><con:testStep type="groovy" name="90PercentSave10PercentSelect"><con:settings/><con:config><script>if( Math.random() > 0.9 ){
+	testRunner.runTestStepByName("Call selectImagesNearLocation");
+}else{
+	testRunner.runTestStepByName("Call saveImage");
+}
+testRunner.gotoStepByName("Finish");</script></con:config></con:testStep><con:testStep type="request" name="Call selectImagesNearLocation"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ImageHeaderServiceSoapBinding</con:interface><con:operation>selectImagesNearLocation</con:operation><con:request name="Call selectImagesNearLocation" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mosaicgrailsloadtestapp.elasticbeanstalk.com/services/imageHeader</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:caet="http://caete.csci5673.cu.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <caet:selectImagesNearLocation>
+	<!-- Latitude between -180000000 and 180000000 ; Rante 360000000-->
+        <longitude>${=-180000000+(int)((Math.random()*360000000))}</longitude>
+	<!-- Latitude between -90000000 and 90000000 ; Rante 180000000--> 
+	<latitude>${=-90000000+(int)((Math.random()*180000000))}</latitude>
+         <!--1 to 10000 images-->
+         <numImagesToSelect>${=(int)(Math.random()*10000)}</numImagesToSelect>
+      </caet:selectImagesNearLocation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://caete.csci5673.cu.edu/ImageHeaderServicePortType/selectImagesNearLocation"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Call saveImage"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ImageHeaderServiceSoapBinding</con:interface><con:operation>saveImage</con:operation><con:request name="Call saveImage" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mosaicgrailsloadtestapp.elasticbeanstalk.com/services/imageHeader</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:caet="http://caete.csci5673.cu.edu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <caet:saveImage>
+         <!--Generate 10000 records-->
+         <url>http://test/${=(int)(Math.random()*10000)}.bmp</url>
+         
+	 <!-- Latitude between -180000000 and 180000000 ; Rante 360000000-->
+         <longitude>${=-180000000+(int)((Math.random()*360000000))}</longitude>
+         <!-- Latitude between -90000000 and 90000000 ; Rante 180000000--> 
+	 <latitude>${=-90000000+(int)((Math.random()*180000000))}</latitude>
+
+         <!--Generate colors between 0 and 255-->
+         <red>${=(int)(Math.random()*255)}</red>
+         <blue>${=(int)(Math.random()*255)}</blue>
+         <green>${=(int)(Math.random()*255)}</green>
+      </caet:saveImage>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://caete.csci5673.cu.edu/ImageHeaderServicePortType/saveImage"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="manualTestStep" name="Finish"><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:testStep><con:loadTest name="SimpleLoadTest"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>10</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>300</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>100</testDelay><randomFactor>0.5</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:statisticsLogFolder/><con:statisticsLogInterval>0</con:statisticsLogInterval><con:logStatisticsOnThreadChange>false</con:logStatisticsOnThreadChange><con:cancelOnReachedLimit>false</con:cancelOnReachedLimit><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>400</con:strategyInterval><con:updateStatisticsPerTestStep>false</con:updateStatisticsPerTestStep></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
