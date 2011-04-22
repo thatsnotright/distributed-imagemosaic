@@ -263,7 +263,7 @@ $fname = tempnam(sys_get_temp_dir(), "cache_");
 imagejpeg($image, $fname);
 $split = preg_split("/cache_/", $fname);
 $last = $split[count($split)-1];
-echo "<img src='image.php?image=".$last."' />";
+echo "<img src='image.php?image=".$last."' usemap=\"#sourcemap\" />";
 imagedestroy($image);
 echo "Downloaded ".count($imagecache)." images in ".$dtime." seconds, total of ".$totalsize." bytes for ".$totalsize/$dtime." bytes/sec<br/>";
 echo "Took ".$time." seconds to create the output image.<br/>";
