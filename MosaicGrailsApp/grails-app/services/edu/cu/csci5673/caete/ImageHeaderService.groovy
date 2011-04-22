@@ -5,8 +5,8 @@ class ImageHeaderService {
      * They should be the same length.
      * The sum of the elements should not exceed Coordinate.DEGREES_LONGITUDE
      */
-    public static List<Integer> LONG_EXPANSION = [1000,10000,100000]
-    public static List<Integer> LAT_EXPANSION  = [500,5000,50000]
+    public static List<Integer> LONG_EXPANSION = [100000,1000000,10000000]
+    public static List<Integer> LAT_EXPANSION  = [50000,500000,5000000]
 
     static expose=['cxf']
 
@@ -18,17 +18,8 @@ class ImageHeaderService {
     void saveImage(String url, Integer longitude, Integer latitude,
         Integer red, Integer blue, Integer green){
 
-        /*
-         * The longitudes in the database appear to be too large by a factor
-         * of 10.  Currently DB latitude are bigger than longitude.  This
-         * Does not make since as latitude ranges from 90 to -90 and
-         * Longitude ranges from 180 to -180.  So longitude should be bigger
-         * than latitude on average however it never is.  As a quick fix,
-         * I am going to divide by 10 until the DB format is fixed.
-         */
-        if (latitude>Coordinate.MAX_LATITUDE || latitude<Coordinate.MIN_LATITUDE){
-            latitude = latitude / 10
-        }
+        // validate the long/lat. If they are out of bounds exception thrown.
+        Coordinate lowerBounds = new Coordinate(longitude,latitude)
 
         ImageHeader old = ImageHeader.get(url);
         if (old==null){
