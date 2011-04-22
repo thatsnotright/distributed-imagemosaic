@@ -28,21 +28,19 @@ class ImageHeaderServiceIntegrationTests extends GroovyTestCase {
         results = service.selectImagesNearLocation(2,2,-1)
         assertEquals 0,results.size()                       // select no images
 
-        // Test Longitude big by 10x too big fix
-        removeAllImageHeaders();
-        service.saveImage("URL",2,Coordinate.MAX_LATITUDE*10,2,2,2)
-        results = service.selectImagesNearLocation(2,Coordinate.MAX_LATITUDE,1)
-        assertEquals 1,results.size()
-        for (ImageHeader ih : results){
-            assertEquals Coordinate.MAX_LATITUDE,ih.getLatitude()
+        // Test out of bounds input params
+        try{
+            service.saveImage("URL",Coordinate.MAX_LONGITUDE+1,2,2,2,2)
+            fail("Invalid longitude")
+        } catch (Exception e) {
+            // exception expected
         }
 
-        removeAllImageHeaders();
-        service.saveImage("URL",2,Coordinate.MIN_LATITUDE*10,2,2,2)
-        results = service.selectImagesNearLocation(2,Coordinate.MIN_LATITUDE,1)
-        assertEquals 1,results.size()
-        for (ImageHeader ih : results){
-            assertEquals Coordinate.MIN_LATITUDE,ih.getLatitude()
+        try{
+            service.saveImage("URL",3,Coordinate.MIN_LATITUDE-1,2,2,2)
+            fail("Invalid latitude")
+         } catch (Exception e) {
+            // exception expected
         }
     }
 
