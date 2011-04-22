@@ -91,11 +91,16 @@ function showpixmap($width, $height, $pixmap, $xblocksize, $yblocksize, $xblocks
 			imagecolordeallocate($pixim, $color);
 		}
 	}
-	ob_start();
+$fname = tempnam(sys_get_temp_dir(), "cache_");
+imagejpeg($pixim, $fname);
+$split = preg_split("/cache_/", $fname);
+$last = $split[count($split)-1];
+echo "<img src='image.php?image=".$last."' />";
+/*	ob_start();
 	imagejpeg($pixim);
 	$contents =  ob_get_contents();
 	ob_end_clean();
-	echo "<img src='data:image/jpeg;base64,".base64_encode($contents)."' /><br/>";
+	echo "<img src='data:image/jpeg;base64,".base64_encode($contents)."' /><br/>";*/
 	imagedestroy($pixim);
 }
 
@@ -124,11 +129,24 @@ $width = $size[0];
 $height = $size[1];
 
 $im = imagecreatefromjpeg($filename);
-ob_start();
-imagejpeg($im);
-$contents =  ob_get_contents();
-ob_end_clean();
-echo "<img src='data:image/jpeg;base64,".base64_encode($contents)."' />";
+if ( $width > 600 || $height > 600 ) {
+	$ow = $width;
+	$oh = $height;
+	$ratio = $height/$width;
+	$width = 600;
+	$height = (int)($ratio*$width);
+	$oldim = $im;
+	$im = imagecreatetruecolor($width, $height);
+	imagecopyresampled($im, $oldim, 0, 0, 0, 0, $width, $height, $ow, $oh);
+	imagedestroy($oldim);
+}
+
+$fname = tempnam(sys_get_temp_dir(), "cache_");
+imagejpeg($im, $fname);
+$split = preg_split("/cache_/", $fname);
+$last = $split[count($split)-1];
+echo "<img src='image.php?image=".$last."' />";
+
 
 $xblocksize = $_POST['tilesize'];
 if(isset($_POST['keepsize'])) {
@@ -155,10 +173,12 @@ if(isset($_POST['keepsize'])) {
 	$height = $yblocksize * $yblocks;
 	$image = imagecreatetruecolor($width, $height);
 }
-
+imagedestroy($im);
 echo "Final image size will be ".$width."x".$height." pixels<br/>";
 
 $client = new nusoap_client('http://mosaicgrailsapp.elasticbeanstalk.com/services/imageHeader?wsdl','wsdl');
+$client->setDebugLevel(0);
+$client->use_curl = true;
 $result = $client->call('selectImagesNearLocation', array('longitude'=>(int)$lon, 'latitude'=>(int)$lat, 'numImagesToSelect'=>(int)$tilecount));
 
 $imagelist = $result['return'];
@@ -212,7 +232,7 @@ for($x=0;$x<$xblocks;$x++) {
 	for($y=0; $y<$yblocks;$y++) {
 		$img = imagecreatefromjpeg($imagecache[$tileMap[$x][$y]]);
 		$img_size = getimagesize($imagecache[$tileMap[$x][$y]]); // probably inefficient
-		imagecopyresampled($image, $img, $x*$xblocksize, $y*$yblocksize, 0, 0, $xblocksize, $yblocksize, $img_size[0], $img_size[1]);
+		imagecopyresized($image, $img, $x*$xblocksize, $y*$yblocksize, 0, 0, $xblocksize, $yblocksize, $img_size[0], $img_size[1]);
 		imagedestroy($img);
 	}
 }
@@ -232,11 +252,18 @@ for($x=0;$x<$xblocks;$x++) {
 }
 echo "</map>";
 
-ob_start();
+/*ob_start();
 imagejpeg($image);
 $contents =  ob_get_contents();
 ob_end_clean();
-echo "<img src='data:image/jpeg;base64,".base64_encode($contents)."' usemap=\"#sourcemap\"/>";
+
+
+echo "<img src='image.php?image=' usemap=\"#sourcemap\"/>";*/
+$fname = tempnam(sys_get_temp_dir(), "cache_");
+imagejpeg($image, $fname);
+$split = preg_split("/cache_/", $fname);
+$last = $split[count($split)-1];
+echo "<img src='image.php?image=".$last."' />";
 imagedestroy($image);
 echo "Downloaded ".count($imagecache)." images in ".$dtime." seconds, total of ".$totalsize." bytes for ".$totalsize/$dtime." bytes/sec<br/>";
 echo "Took ".$time." seconds to create the output image.<br/>";
