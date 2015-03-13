@@ -1,0 +1,1 @@
+A project written to provide a distributed image mosaic creation utility.
